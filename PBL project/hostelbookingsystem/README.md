@@ -320,6 +320,6 @@ hostel_booking/
 
 ## 👨‍💻 Authors
 
-**Made by Parth Puri and Nandika Mishra**
+**Made by Prajjwal Sinha
 
 Built with ❤️ using Django
