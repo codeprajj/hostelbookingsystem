@@ -1,0 +1,53 @@
+{% extends 'hostel/base.html' %}
+
+{% block title %}Blocks - Hostel Booking{% endblock %}
+
+{% block content %}
+<div class="hostel-layout-container">
+    <div class="hostel-header">
+        <h1>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+            </svg>
+            Available Blocks
+        </h1>
+        <p>Select a block to view available rooms</p>
+    </div>
+    
+    {% if blocks %}
+        <div class="blocks-grid">
+            {% for block in blocks %}
+                <a href="{% url 'block_layout' block.id %}" class="block-card">
+                    <div class="block-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                        </svg>
+                    </div>
+                    <div class="block-name">{{ block.block_name }}</div>
+                    <div class="block-gender">
+                        {% if block.gender == 'M' %}
+                            <span class="gender-badge male">Male Block</span>
+                        {% else %}
+                            <span class="gender-badge female">Female Block</span>
+                        {% endif %}
+                    </div>
+                    {% if block.description %}
+                        <div class="block-description">{{ block.description }}</div>
+                    {% endif %}
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div style="text-align: center; padding: 3rem; color: #64748b;">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width: 64px; height: 64px; margin: 0 auto 1rem; color: #94a3b8;">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <p style="font-size: 1.1rem;">No blocks available yet.</p>
+            {% if not user_gender %}
+                <p style="margin-top: 0.5rem; color: #f59e0b;">Please update your profile with gender information to view blocks.</p>
+            {% endif %}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
+
